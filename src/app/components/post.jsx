@@ -1,14 +1,8 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
 
 const Post = (props) => {
-  let { posts, label } = props
-  const { id } = useParams()
-
-  if (posts) {
-    const post = posts.find((post) => String(post.id) === id)
-    label = post.label
-  }
+  let { posts, id } = props
+  const { label } = posts.find((post) => String(post.id) === String(id)) ?? {}
 
   return <div>{label}</div>
 }
