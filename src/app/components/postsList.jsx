@@ -1,10 +1,14 @@
 import React from 'react'
-import Post from './post'
+import { Link } from 'react-router-dom'
 
 const PostsList = (props) => {
   const { posts } = props
 
-  return posts.map(({ id }) => <Post key={id} id={id} posts={posts} />)
+  return posts.map(({ id, label }) => (
+    <Link key={id} to={`/posts/${id}`}>
+      <h3>{label}</h3>
+    </Link>
+  ))
 }
 
 export default PostsList
