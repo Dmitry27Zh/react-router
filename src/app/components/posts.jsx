@@ -1,7 +1,8 @@
 import React from 'react'
 import Post from './post'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import PostsList from './postsList'
+import queryString from 'query-string'
 
 const posts = [
   {
@@ -20,12 +21,16 @@ const posts = [
 
 const Posts = () => {
   const { id } = useParams()
+  const { search } = useLocation()
 
   if (id) {
     return <Post id={id} posts={posts} />
   }
 
-  return <PostsList posts={posts} />
+  const { count = posts.length } = queryString.parse(search)
+  const postsToRender = posts.slice().splice(0, count)
+
+  return <PostsList posts={postsToRender} />
 }
 
 export default Posts
